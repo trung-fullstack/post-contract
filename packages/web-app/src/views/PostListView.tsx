@@ -1,7 +1,12 @@
 import * as React from 'react'
-import { Stack, Text } from '@chakra-ui/react'
+import { Stack, Text, Button } from '@chakra-ui/react'
 import { Paper } from '../components/Paper'
-import { Post, usePosts, usePostSubscription } from '../lib/queries'
+import {
+  Post,
+  usePosts,
+  usePostSubscription,
+  useClearPosts
+} from '../lib/queries'
 
 function PostList() {
   const { isLoading, isError, error, data } = usePosts()
@@ -53,11 +58,19 @@ function PostList() {
 
 export function PostListView() {
   usePostSubscription()
+  const clearPosts = useClearPosts()
 
   return (
     <Paper width="100%">
-      <Stack direction="row" alignItems="center">
-        <Text fontWeight="semibold">Events</Text>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Text fontWeight="semibold">Posts</Text>
+        <Button
+          onClick={() => {
+            clearPosts.mutate()
+          }}
+        >
+          Clear
+        </Button>
       </Stack>
 
       <PostList />

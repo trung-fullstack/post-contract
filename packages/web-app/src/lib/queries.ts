@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react'
-import { useQuery, UseQueryResult, useQueryClient } from 'react-query'
+import { useQuery, UseQueryResult, useQueryClient, useMutation } from 'react-query'
 import { API_URL } from '../config'
 
 export interface Post {
@@ -41,4 +41,18 @@ export const usePostSubscription = () => {
       eSource.current?.close()
     }
   }, [queryClient])
+}
+
+
+export const useClearPosts = () => {
+  const queryClient = useQueryClient()
+  return useMutation(async () => {
+    const res = await fetch(`${API_URL}/posts`, {
+      method: 'DELETE'
+    })
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    queryClient.invalidateQueries(QUERY_KEYS.GET_POSTS)
+  })
 }
