@@ -25,4 +25,4 @@ deploy script will print out the contract address on terminal
 
 
 ### 6. Run web app
-##### `yarn run start:server`
+##### `yarn run start:web`
