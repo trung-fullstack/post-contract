@@ -46,6 +46,7 @@ export class App {
 
     this.app.get('/posts', this.postHandler.list)
     this.app.post('/posts', this.postHandler.create)
+    this.app.delete('/posts', this.postHandler.clear)
     this.app.get('/subscribe', this.subscribeHandler.create)
 
     this.poster.listenPostEent(this.postHandler.createFromEvent)

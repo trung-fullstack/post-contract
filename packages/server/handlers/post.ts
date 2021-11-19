@@ -15,11 +15,18 @@ export class PostHandler {
     return res.json(results)
   }
 
+  public clear = async (req: Request, res: Response) => {
+    await getRepository(Post).clear()
+    return res.json({
+      message: 'succes'
+    })
+  }
+
   public createFromEvent = async (eventBody: string) => {
     const post = await getRepository(Post).create({
       content: Utils.convertString(eventBody)
     })
-    const {content} = await getRepository(Post).save(post)
+    const { content } = await getRepository(Post).save(post)
     return content
   }
 }
